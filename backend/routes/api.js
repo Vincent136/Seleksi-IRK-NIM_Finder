@@ -36,43 +36,43 @@ for(var key in kode_fakultas){
 // console.log(array_kode_fakultas);
 // console.log(array_fakultas);
 
-router.post("/", async (req, res) => {
+// router.post("/", async (req, res) => {
 
-    test.forEach(async (isi) => {
-        try {
-            if (isi.length == 2) {
-                const kode_fakultas_new = isi[1].slice(0,3)
-                const newPeople = await new People({
-                    Nama: isi[0],
-                    NIM_tpb: isi[1],
-                    Fakultas: list_fakultas[kode_fakultas_new],
-                    KodeFakultas: kode_fakultas[kode_fakultas_new]
-                });    
-                const people = await newPeople.save();
-            } else if (isi.length == 3) {
-                const kode_fakultas_new = isi[1].slice(0,3)
-                const kode_jurusan_new = isi[2].slice(0,3)
+//     test.forEach(async (isi) => {
+//         try {
+//             if (isi.length == 2) {
+//                 const kode_fakultas_new = isi[1].slice(0,3)
+//                 const newPeople = await new People({
+//                     Nama: isi[0],
+//                     NIM_tpb: isi[1],
+//                     Fakultas: list_fakultas[kode_fakultas_new],
+//                     KodeFakultas: kode_fakultas[kode_fakultas_new]
+//                 });    
+//                 const people = await newPeople.save();
+//             } else if (isi.length == 3) {
+//                 const kode_fakultas_new = isi[1].slice(0,3)
+//                 const kode_jurusan_new = isi[2].slice(0,3)
 
-                const newPeople = await new People({
-                    Nama: isi[0],
-                    NIM_tpb: isi[1],
-                    NIM_jurusan: isi[2],
-                    Fakultas: list_fakultas[kode_fakultas_new],
-                    KodeFakultas: kode_fakultas[kode_fakultas_new],
-                    Jurusan: list_jurusan[kode_jurusan_new],
-                    KodeJurusan: kode_jurusan[kode_jurusan_new]
-                });   
-                const people = await newPeople.save();
-            } else {
-                console.log("Wrong")
-            }
-        }catch (e) {
-            console.log(e)
-        }
-    });
+//                 const newPeople = await new People({
+//                     Nama: isi[0],
+//                     NIM_tpb: isi[1],
+//                     NIM_jurusan: isi[2],
+//                     Fakultas: list_fakultas[kode_fakultas_new],
+//                     KodeFakultas: kode_fakultas[kode_fakultas_new],
+//                     Jurusan: list_jurusan[kode_jurusan_new],
+//                     KodeJurusan: kode_jurusan[kode_jurusan_new]
+//                 });   
+//                 const people = await newPeople.save();
+//             } else {
+//                 console.log("Wrong")
+//             }
+//         }catch (e) {
+//             console.log(e)
+//         }
+//     });
 
-    res.status(200).json("complete")
-})
+//     res.status(200).json("complete")
+// })
 
 function isNIM(string) {
     if (string.match("^[0-9]+$")) {
@@ -140,6 +140,13 @@ function searchByProdiTahun(string, tahun) {
     var pattern_tahun = "[0-9][0-9][0-9]" + tahun + "[0-9][0-9][0-9]"
     return People.find({$or:[{KodeJurusan: {$regex: string}, NIM_tpb: {$regex: pattern_tahun}}, {Jurusan: {$regex: string}, NIM_tpb: {$regex: pattern_tahun}},{KodeFakultas: {$regex: string},NIM_tpb: {$regex: pattern_tahun}},{Fakultas: {$regex: string},NIM_tpb: {$regex: pattern_tahun}}]}).exec();
 }
+
+router.options("/result", function (req, res) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader("Access-Control-Allow-Headers", "*");
+    res.end();
+  });
 
 router.post("/result", async function(req, res) {
     var query = req.body.Query;

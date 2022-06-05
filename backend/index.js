@@ -6,7 +6,6 @@ const cors = require('cors');
 const apiRoute = require('./routes/api');
 
 dotenv.config();
-  
 
 mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true}, (err) => {
     if(err) console.log(err) 
