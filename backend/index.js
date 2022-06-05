@@ -18,6 +18,6 @@ app.use(cors());
 
 app.use("/api/" , apiRoute);
 
-app.listen(8800,() => {
+app.listen(process.env.PORT,() => {
     console.log("backend is running.");
 })
