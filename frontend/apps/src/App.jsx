@@ -16,10 +16,8 @@ export const ThemeContext = createContext(null)
 
 function App() {
   const [theme, setTheme] = useState("light")
-  const [checked, setChecked] = useState(true);
 
   const handleChange = (event) => {
-    setChecked(event.target.checked);
     toggleTheme();
   };
 
