@@ -37,6 +37,10 @@
     font-size:12px;
 }
 
+#LoadingInfo{
+    display:none;
+}
+
 #load {
     visibility: hidden;
     background-color: #74d6d3;
@@ -45,6 +49,17 @@
     font-size: 14px;
     margin-top:20px;
 }
+
+#load:hover {
+    cursor:pointer;
+}
+
+#load:disabled {
+    cursor:default;
+    background-color: grey;
+    color:#74d6d3
+}
+
 
 ::-webkit-scrollbar {
     width:10px;

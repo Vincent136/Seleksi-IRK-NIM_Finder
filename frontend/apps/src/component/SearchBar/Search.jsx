@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import "./Search.css"
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import axios from 'axios'
@@ -10,26 +10,36 @@ export default function Search() {
 
   const getResult = (Query) => {
     setCount(0);
-    document.getElementById('load').style.visibility = 'hidden';
+    document.getElementById('load').style.visibility = 'visible';
+    document.getElementById('LoadingInfo').style.display = 'block';
     setSearchList([])
     axios.post(`${process.env.REACT_APP_BACKEND_API}/api/result`, {
       Query: Query
     }).then ((response) => {
       setSearchList(response.data);
       setCount(20);
-      if (response.data.length > count) {
-        document.getElementById('load').style.visibility = 'visible';
-      }
+      document.getElementById('LoadingInfo').style.display = 'none';
     })
   }
 
-  function handleClick(e) {
+ function handleClick(e) {
     e.preventDefault();
     setCount(count + 20);
-    if (searchList.length <= count) {
-      document.getElementById('load').style.visibility = 'hidden';
-    }
   }
+
+  const previousValues = useRef({ searchList, count });
+
+  useEffect(() => { 
+    if (
+      JSON.stringify(previousValues.current.searchList) !== JSON.stringify(searchList) &&
+      previousValues.current.count !== count
+    ) {
+      if (count >= searchList.length) {
+        setCount(searchList.length);
+        document.getElementById('load').style.visibility = 'hidden';
+      }
+    }
+  }, [count, searchList]);
 
   return (
     <div className="Search">
@@ -49,6 +59,8 @@ export default function Search() {
              getResult(e.target.value)
           }
         }}/>
+        <p id="searchInfo">load {count} data of {searchList.length}</p>
+        <p id="LoadingInfo">loading...</p>
         <div className="searchResults">
         {searchList.slice(0,count).map((val, key) => {
             return (
