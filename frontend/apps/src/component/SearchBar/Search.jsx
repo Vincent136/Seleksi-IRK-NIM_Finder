@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import "./Search.css"
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import axios from 'axios'
 
 
@@ -50,7 +49,6 @@ export default function Search() {
             <p>Tidak ada NIM yang tersembunyi...</p>
           </div>
           <div className="rightTitle">
-            <HelpOutlineIcon/>
           </div>
         </div>
         <input placeholder="Masukan NIM, Jurusan Tahun, atau Nama" className="searchBar"
