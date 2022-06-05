@@ -1,0 +1,73 @@
+#light{
+    background-color: #faf5ee;
+}
+
+#dark{
+    background-color: #2e5755;
+}
+
+#light h2 {
+    color: #417D7A;
+}
+
+#light p {
+    color: #879695;
+}
+
+#light input {
+    background-color: white;
+}
+
+#light ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #417D7A;
+    opacity: 1; /* Firefox */
+  }
+
+#light ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #417D7A;
+}
+
+#light .searchResults {
+    background-color: #fbf3e5 ;
+}
+
+#light .big{
+    color: #2f6462;
+}
+
+#dark h2 {
+    color: #cabfaf;
+}
+
+#dark p {
+    color: #d4cfc6;
+}
+
+#dark input {
+    background-color: #417D7A
+
+}
+
+#dark ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #cabfaf;
+    opacity: 1; /* Firefox */
+  }
+
+#dark ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #cabfaf;
+}
+
+#dark .searchResults {
+    background-color: #1b4a47
+}
+
+#dark .big{
+    color: #8e867b;
+}
+
+.Switch {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 25px;
+}
