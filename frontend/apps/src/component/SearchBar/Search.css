@@ -19,7 +19,7 @@
     border-radius:50px;
 }
 .searchResults{
-    height: 60vh;
+    max-height: 60vh;
     overflow-y: auto;
     border-radius:10px;
 }
@@ -93,7 +93,7 @@
 
   @media only screen and (max-height: 1000px) {
     .searchResults{
-        height: 40vh
+        max-height: 40vh
     }
   }
 
