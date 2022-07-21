@@ -1,44 +1,57 @@
 import { useState, useEffect, useRef } from 'react'
 import "./Search.css"
 import axios from 'axios'
+import nimFinder from "./nimFinder.js"
 
 
 export default function Search() {
   const [searchList, setSearchList] = useState([]);
   const [count, setCount] = useState(0);
+  const [showButton, setShowButton] = useState(false);
+  const [showLoadingInfo, setLoadingInfo] = useState(false);
+
 
   const getResult = (Query) => {
+    setShowButton(false);
     setCount(0);
-    document.getElementById('load').style.visibility = 'visible';
-    document.getElementById('LoadingInfo').style.display = 'block';
-    setSearchList([])
+    setSearchList([]);
+    setLoadingInfo(true);
     axios.post(`${process.env.REACT_APP_BACKEND_API}/api/result`, {
       Query: Query
     }).then ((response) => {
       setSearchList(response.data);
-      setCount(20);
-      document.getElementById('LoadingInfo').style.display = 'none';
+      setLoadingInfo(false);
+    }).catch((err) => {
+      console.log(err);
     })
   }
 
  function handleClick(e) {
     e.preventDefault();
-    setCount(count + 20);
+    if (count + 20 >= searchList.length) {
+      setShowButton(false);
+      setCount(searchList.length);
+    } else {
+      setCount(count + 20);
+    }
   }
 
   const previousValues = useRef({ searchList, count });
 
-  useEffect(() => { 
+  useEffect(() => {
     if (
-      JSON.stringify(previousValues.current.searchList) !== JSON.stringify(searchList) &&
-      previousValues.current.count !== count
+      JSON.stringify(previousValues.current.searchList) !== JSON.stringify(searchList)
     ) {
-      if (count >= searchList.length) {
+      if (searchList.length >= 20) {
+        setCount(20);
+        setShowButton(true);
+      } else {
         setCount(searchList.length);
-        document.getElementById('load').style.visibility = 'hidden';
       }
     }
-  }, [count, searchList]);
+    nimFinder("16521012");
+  }, [searchList]);
+
 
   return (
     <div className="Search">
@@ -58,7 +71,7 @@ export default function Search() {
           }
         }}/>
         <p id="searchInfo">load {count} data of {searchList.length}</p>
-        <p id="LoadingInfo">loading...</p>
+        { showLoadingInfo &&<p id="LoadingInfo">loading...</p>}
         <div className="searchResults">
         {searchList.slice(0,count).map((val, key) => {
             return (
@@ -76,7 +89,9 @@ export default function Search() {
             )
           })}
         </div>
-        <button id="load" onClick={handleClick}>Tampilkan lebih banyak</button>
+        {
+          showButton && <button id="load" onClick={handleClick}>Tampilkan lebih banyak</button>
+        }
       </div>
 
     </div>

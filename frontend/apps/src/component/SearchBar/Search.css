@@ -19,7 +19,7 @@
     border-radius:50px;
 }
 .searchResults{
-    max-height: 60vh;
+    height: 60vh;
     overflow-y: auto;
     border-radius:10px;
 }
@@ -37,12 +37,7 @@
     font-size:12px;
 }
 
-#LoadingInfo{
-    display:none;
-}
-
 #load {
-    visibility: hidden;
     background-color: #74d6d3;
     color: #1f4847;
     border-radius: 3px;
@@ -93,6 +88,12 @@
 @media only screen and (max-width: 450px) {
     .SearchWrapper {
         width:220px;
+    }
+  }
+
+  @media only screen and (max-height: 1000px) {
+    .searchResults{
+        height: 40vh
     }
   }
 
